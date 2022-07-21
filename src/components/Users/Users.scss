@@ -1,19 +1,10 @@
-.User{
-  &__info{
+.User {
+  &__avatar {
+    background-color: #f5f5f5;
     display: flex;
-
-    &-mail {
-      font-size: 18px;
-    }
-
-    &-text {
-      margin-left: 15px;
-    }
+    align-items: center;
+    justify-content: center
   }
-}
-
-.card-margin {
-  margin: 15px;
 }
 
 .spinner {

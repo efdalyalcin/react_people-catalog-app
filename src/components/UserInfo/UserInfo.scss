@@ -1,0 +1,17 @@
+.User{
+  &__info{
+    display: flex;
+
+    &-icon {
+      display: block;
+      height: 26px;
+    }
+
+    &-text {
+      margin-bottom: 4px;
+      margin-left: 10px;
+
+      color: rgba(0,0,0,.65);
+    }
+  }
+}

@@ -11,8 +11,6 @@ export const Users = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
 
-  console.log(likedUsers);
-
   const loadUsers = useCallback(
     async () => {
       try {
@@ -54,14 +52,17 @@ export const Users = () => {
             ? (<div className="ant-row">
                 {users.map(user => (
                   <div 
-                    className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6 card-margin"
+                    className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6"
                     key={user.id}
                   >
                     <div 
                       className="ant-card ant-card-bordered"
+                      style={{ margin:'15px' }}
                     >
                       <div className="ant-card-cover">
-                        <Avatars username={user?.name} />
+                        <div className="User__avatar">
+                          <Avatars username={user.name} />
+                        </div>
                       </div>
                       <div className="ant-card-body">
                         <UserInfo 
@@ -71,13 +72,13 @@ export const Users = () => {
                           userWebsite={user.website}
                         />
                       </div>
-                      <div>
+                      <>
                         <UserActions 
                           handleLikeUser={handleLikeUser}
                           userId={user.id}
                           deleteUser={deleteUser}
                         />
-                      </div>
+                      </>
                     </div>
                   </div>
                 ))}
@@ -86,7 +87,6 @@ export const Users = () => {
           )
         : <div className="spinner"></div>
       }
-      
     </div>
   );
 };

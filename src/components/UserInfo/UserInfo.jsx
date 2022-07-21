@@ -1,3 +1,5 @@
+import './UserInfo.scss'
+
 export const UserInfo = ({
   userName,
   userEmail,
@@ -6,13 +8,13 @@ export const UserInfo = ({
 }) => (
   <div>
     <h3>{userName}</h3>
-    <div className="User__info User__info-mail">
-      <i aria-label="icon: mail" className="anticon anticon-mail">
+    <div className="User__info">
+      <i aria-label="icon: mail" className="User__info-icon">
         <svg 
           viewBox="64 64 896 896" 
           data-icon="mail" 
-          width="1em" 
-          height="1em" 
+          width="18px" 
+          height="18px" 
           fill="currentColor" 
           aria-hidden="true"
         >
@@ -22,12 +24,12 @@ export const UserInfo = ({
       <p className="User__info-text">{userEmail}</p>
     </div>
     <div className="User__info">
-      <i aria-label="icon: phone" className="anticon anticon-phone">
+      <i aria-label="icon: phone" className="User__info-icon">
         <svg 
           viewBox="64 64 896 896"
           data-icon="phone"
-          width="1em"
-          height="1em"
+          width="18px"
+          height="18px"
           fill="currentColor"
           aria-hidden="true"
         >
@@ -37,12 +39,12 @@ export const UserInfo = ({
       <p className="User__info-text">{userPhone}</p>
     </div>
     <div className="User__info">
-      <i aria-label="icon: global" className="anticon anticon-global">
+      <i aria-label="icon: global" className="User__info-icon">
         <svg 
           viewBox="64 64 896 896"
           data-icon="global"
-          width="1em"
-          height="1em"
+          width="18px"
+          height="18px"
           fill="currentColor"
           aria-hidden="true"
         >
@@ -50,7 +52,7 @@ export const UserInfo = ({
           </path>
         </svg>
       </i>
-      <p className="User__info-text">{userWebsite}</p>
+      <p className="User__info-text">{`http://${userWebsite}`}</p>
     </div>
 
   </div>
