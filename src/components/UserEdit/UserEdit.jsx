@@ -12,6 +12,19 @@ export const UserEdit = ({
   const [newPhone, setNewPnone] = useState(user.phone);
   const [newWebsite, setNewWebsite] = useState(user.website);
 
+  const handleUpdateUser = () => {
+    const newUser = {
+      ...user,
+      name: newName,
+      email: newMail,
+      phone: newPhone,
+      website: newWebsite,
+    };
+
+    updateUser(user.id, newUser);
+    console.log(newUser);
+  };
+
   if (!open) {
     return null;
   };
@@ -151,11 +164,22 @@ export const UserEdit = ({
             
             <div className="ant-modal-footer">
               <div>
-                <button type="button" className="ant-btn">
-                  <span>Cancel</span>
+                <button 
+                  type="button"
+                  className="ant-btn"
+                  onClick={closeModal}
+                >
+                  Cancel
                 </button>
-                <button type="button" className="ant-btn ant-btn-primary">
-                  <span>OK</span>
+                <button 
+                  type="button"
+                  className="ant-btn ant-btn-primary"
+                  onClick={() => {
+                    handleUpdateUser();
+                    closeModal();
+                  }}
+                >
+                  OK
                 </button>
               </div>
             </div>

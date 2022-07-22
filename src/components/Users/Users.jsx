@@ -50,6 +50,8 @@ export const Users = () => {
       if (user.id === userId) {
         user = {...newUser};
       }
+
+      return user;
     }));
   };
 
