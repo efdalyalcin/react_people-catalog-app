@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
-import { getUsers } from "../../api/getUsers";
-import { Avatars } from "../Avatars/Avatars";
-import { UserInfo } from "../UserInfo/UserInfo";
-import { UserActions } from "../UserActions/UserActions";
+import { useState, useCallback, useEffect } from 'react';
+import { getUsers } from '../../api/getUsers';
+import { Avatars } from '../Avatars/Avatars';
+import { UserInfo } from '../UserInfo/UserInfo';
+import { UserActions } from '../UserActions/UserActions';
 import './Users.scss';
 import 'antd/dist/antd.min.css';
 
@@ -45,6 +45,14 @@ export const Users = () => {
     setUsers(users.filter(user => user.id !== userId));
   };
 
+  const updateUser = (userId, newUser) => {
+    setUsers(users.map(user => {
+      if (user.id === userId) {
+        user = {...newUser};
+      }
+    }));
+  };
+
   return (
     <div>
       {isLoaded 
@@ -77,6 +85,8 @@ export const Users = () => {
                           handleLikeUser={handleLikeUser}
                           userId={user.id}
                           deleteUser={deleteUser}
+                          updateUser={updateUser}
+                          user={user}
                         />
                       </>
                     </div>

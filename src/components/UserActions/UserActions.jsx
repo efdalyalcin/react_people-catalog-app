@@ -1,35 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { UserEdit } from '../UserEdit/UserEdit';
 import './UserActions.scss';
 
 export const UserActions = ({ 
   handleLikeUser,
   userId,
-  deleteUser
+  deleteUser,
+  updateUser,
+  user,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDeleteHovering, setIsDeleteHovering] = useState(false);
   const [isEditHovering, setIsEditHovering] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteMouseEnter = () => {
     setIsDeleteHovering(true);
   };
-
+  
   const handleDeleteMouseLeave = () => {
     setIsDeleteHovering(false);
   };
-
+  
   const handleEditMouseEnter = () => {
     setIsEditHovering(true);
   };
-
+  
   const handleEditMouseLeave = () => {
     setIsEditHovering(false);
   };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
+  // scroll settings
+  useEffect(
+    () => {
+      if (isModalOpen) {
+        document.body.style.overflow = "hidden";
+        document.body.style.paddingRight = "15px";
+      } else {
+        document.body.style.overflow = "visible";
+        document.body.style.paddingRight = "0";
+      };
+    },
+    [isModalOpen],
+  );
 
   return (
     <ul 
-      className="ant-card-actions"
-      style={{ backgroundColor: '#fafafa'}}
+    className="ant-card-actions"
+    style={{ backgroundColor: '#fafafa'}}
     >
       <li className="UserActions__item">
         {isLiked
@@ -94,6 +116,7 @@ export const UserActions = ({
           className="UserActions__button"
           onMouseEnter={handleEditMouseEnter}
           onMouseLeave={handleEditMouseLeave}
+          onClick={() => setIsModalOpen(true)}
         >
           <i 
             aria-label="icon: edit"
@@ -114,6 +137,13 @@ export const UserActions = ({
             </svg>
           </i>
         </button>
+
+        <UserEdit
+          open={isModalOpen}
+          closeModal={closeModal}
+          updateUser={updateUser}
+          user={user}
+        />
       </li>
       <li className="UserActions__item">
         <button 
