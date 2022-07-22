@@ -1,10 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { getUsers } from '../../api/getUsers';
-import { Avatars } from '../Avatars/Avatars';
-import { UserInfo } from '../UserInfo/UserInfo';
-import { UserActions } from '../UserActions/UserActions';
 import './Users.scss';
 import 'antd/dist/antd.min.css';
+import { User } from '../User/User';
 
 export const Users = () => {
   const [users, setUsers] = useState([]);
@@ -65,33 +63,12 @@ export const Users = () => {
                     className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6"
                     key={user.id}
                   >
-                    <div 
-                      className="ant-card ant-card-bordered"
-                      style={{ margin:'15px' }}
-                    >
-                      <div className="ant-card-cover">
-                        <div className="User__avatar">
-                          <Avatars username={user.name} />
-                        </div>
-                      </div>
-                      <div className="ant-card-body">
-                        <UserInfo 
-                          userName={user.name}
-                          userEmail={user.email}
-                          userPhone={user.phone}
-                          userWebsite={user.website}
-                        />
-                      </div>
-                      <>
-                        <UserActions 
-                          handleLikeUser={handleLikeUser}
-                          userId={user.id}
-                          deleteUser={deleteUser}
-                          updateUser={updateUser}
-                          user={user}
-                        />
-                      </>
-                    </div>
+                    <User 
+                      user={user}
+                      handleLikeUser={handleLikeUser}
+                      deleteUser={deleteUser}
+                      updateUser={updateUser}
+                    />
                   </div>
                 ))}
               </div>)

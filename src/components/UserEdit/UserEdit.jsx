@@ -22,7 +22,6 @@ export const UserEdit = ({
     };
 
     updateUser(user.id, newUser);
-    console.log(newUser);
   };
 
   if (!open) {
@@ -43,14 +42,6 @@ export const UserEdit = ({
           className="ant-modal"
           style={{ width: "520px", transformOrigin: "434px 296px"}}
         >
-
-          <div 
-            tabIndex="0"
-            style={{ width: "0", height: "0", overflow: "hidden" }}
-          >
-            sentinelStart
-          </div>
-
           <div className="ant-modal-content">
             <button 
               aria-label="Close"
@@ -183,13 +174,6 @@ export const UserEdit = ({
                 </button>
               </div>
             </div>
-          </div>
-
-          <div 
-            tabIndex="0" 
-            style={{ width: "0", height: "0", overflow: "hidden" }}
-          >
-            sentinelEnd
           </div>
         </div>
       </div>
