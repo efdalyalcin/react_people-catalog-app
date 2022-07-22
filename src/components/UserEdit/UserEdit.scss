@@ -1,0 +1,33 @@
+.has-error-parent {
+  position: absolute;
+}
+
+.has-error {
+  clear: both;
+  min-height: 22px;
+  margin-top: -2px;
+  color: rgba(245,34,45,.9);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color .5s cubic-bezier(.215,.61,.355,1);
+}
+
+.has-success {
+  clear: both;
+  min-height: 22px;
+  margin-top: -2px;
+  color: rgba(0,0,0,0);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color .5s cubic-bezier(.215,.61,.355,1);
+}
+
+.input-error,
+.input-error:focus {
+  border-color: rgba(245,34,45,.9);
+  transition: border-color .5s cubic-bezier(.215,.61,.355,1);
+}
+
+.input-error:focus {
+  outline: 0.1em solid rgba(245,34,45,.3);
+}

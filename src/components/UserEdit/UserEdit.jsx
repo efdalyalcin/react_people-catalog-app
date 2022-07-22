@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
+import cn from 'classnames';
+import './UserEdit.scss';
 
 export const UserEdit = ({
   open,
@@ -12,6 +14,40 @@ export const UserEdit = ({
   const [newPhone, setNewPnone] = useState(user.phone);
   const [newWebsite, setNewWebsite] = useState(user.website);
 
+  const [isNameEmpty, setIsNameEmpty] = useState(false);
+  const [isMailEmpty, setIsMailEmpty] = useState(false);
+  const [isPhoneEmpty, setIsPhoneEmpty] = useState(false);
+  const [isWebsiteEmpty, setIsWebsiteEmpty] = useState(false);
+
+  useEffect(
+    () => {
+      if (!newName) {
+        setIsNameEmpty(true);
+      } else {
+        setIsNameEmpty(false);
+      }
+
+      if (!newMail) {
+        setIsMailEmpty(true);
+      } else {
+        setIsMailEmpty(false);
+      }
+
+      if (!newPhone) {
+        setIsPhoneEmpty(true);
+      } else {
+        setIsPhoneEmpty(false);
+      }
+
+      if (!newWebsite) {
+        setIsWebsiteEmpty(true);
+      } else {
+        setIsWebsiteEmpty(false);
+      }
+    },
+    [newName, newMail, newPhone, newWebsite],
+  );
+
   const handleUpdateUser = () => {
     const newUser = {
       ...user,
@@ -21,7 +57,10 @@ export const UserEdit = ({
       website: newWebsite,
     };
 
-    updateUser(user.id, newUser);
+    if (newMail && newName && newPhone && newWebsite) {
+      updateUser(user.id, newUser);
+      closeModal();
+    }
   };
 
   if (!open) {
@@ -75,18 +114,24 @@ export const UserEdit = ({
                     <label htmlFor="name" className="ant-form-item-required" title="Name">Name</label>
                   </div>
                 <div className="ant-col ant-form-item-control-wrapper ant-col-xs-24 ant-col-sm-16">
-                  <div className="ant-form-item-control has-success">
+                  <div className="ant-form-item-control has-error-parent">
                     <span className="ant-form-item-children">
                       <input 
                         type="text"
                         id="name"
                         data-__meta="[object Object]"
                         data-__field="[object Object]"
-                        className="ant-input"
+                        className={cn("ant-input", {'input-error': isNameEmpty})}
                         value={newName}
                         onChange={(event) => setNewName(event.target.value)}
                       />
                     </span>
+                    <div 
+                      className={cn("ant-form-explain",
+                        {'has-error': isNameEmpty, 'has-success': !isNameEmpty})}
+                    >
+                      This field is required
+                    </div>
                   </div>
                 </div>
               </div>
@@ -95,18 +140,25 @@ export const UserEdit = ({
                   <label htmlFor="email" className="ant-form-item-required" title="Email">Email</label>
                 </div>
                 <div className="ant-col ant-form-item-control-wrapper ant-col-xs-24 ant-col-sm-16">
-                  <div className="ant-form-item-control has-success">
+                  <div className="ant-form-item-control has-error-parent">
                     <span className="ant-form-item-children">
                       <input 
                         type="email"
                         id="email"
                         data-__meta="[object Object]"
                         data-__field="[object Object]"
-                        className="ant-input"
+                        className={cn("ant-input", {'input-error': isMailEmpty})}
                         value={newMail}
                         onChange={(event) => setNewMail(event.target.value)}
+                        required
                       />
                     </span>
+                    <div 
+                      className={cn("ant-form-explain",
+                        {'has-error': isMailEmpty, 'has-success': !isMailEmpty})}
+                    >
+                      This field is required
+                    </div>
                   </div>
                 </div>
               </div>
@@ -115,18 +167,25 @@ export const UserEdit = ({
                   <label htmlFor="phone" className="ant-form-item-required" title="Phone">Phone</label>
                 </div>
                   <div className="ant-col ant-form-item-control-wrapper ant-col-xs-24 ant-col-sm-16">
-                    <div className="ant-form-item-control has-success">
+                    <div className="ant-form-item-control has-error-parent">
                       <span className="ant-form-item-children">
                         <input 
                           type="text" 
                           id="phone" 
                           data-__meta="[object Object]"
                           data-__field="[object Object]"
-                          className="ant-input"
+                          className={cn("ant-input", {'input-error': isPhoneEmpty})}
                           value={newPhone}
                           onChange={(event) => setNewPnone(event.target.value)}
+                          required
                         />
                       </span>
+                      <div 
+                        className={cn("ant-form-explain",
+                          {'has-error': isPhoneEmpty, 'has-success': !isPhoneEmpty})}
+                      >
+                        This field is required
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -135,18 +194,25 @@ export const UserEdit = ({
                     <label htmlFor="website" className="ant-form-item-required" title="Website">Website</label>
                   </div>
                   <div className="ant-col ant-form-item-control-wrapper ant-col-xs-24 ant-col-sm-16">
-                    <div className="ant-form-item-control has-success">
+                    <div className="ant-form-item-control has-error-parent">
                       <span className="ant-form-item-children">
                         <input 
                           type="text"
                           id="website"
                           data-__meta="[object Object]"
                           data-__field="[object Object]"
-                          className="ant-input"
+                          className={cn("ant-input", {'input-error': isWebsiteEmpty})}
                           value={newWebsite}
                           onChange={(event) => setNewWebsite(event.target.value)}
+                          required
                         />
                       </span>
+                      <div 
+                      className={cn("ant-form-explain",
+                        {'has-error': isWebsiteEmpty, 'has-success': !isWebsiteEmpty})}
+                    >
+                      This field is required
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -165,10 +231,7 @@ export const UserEdit = ({
                 <button 
                   type="button"
                   className="ant-btn ant-btn-primary"
-                  onClick={() => {
-                    handleUpdateUser();
-                    closeModal();
-                  }}
+                  onClick={handleUpdateUser}
                 >
                   OK
                 </button>
