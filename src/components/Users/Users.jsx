@@ -74,7 +74,9 @@ export const Users = () => {
               </div>)
             : (<h1>No User Data Found</h1>)
           )
-        : <div className="spinner"></div>
+        : <div className="Users__loading">
+            <div className="spinner"></div>
+          </div>
       }
     </div>
   );
