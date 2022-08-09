@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactDom from 'react-dom';
 import cn from 'classnames';
 import './UserEdit.scss';
@@ -11,13 +11,27 @@ export const UserEdit = ({
 }) => {
   const [newName, setNewName] = useState(user.name);
   const [newMail, setNewMail] = useState(user.email);
-  const [newPhone, setNewPnone] = useState(user.phone);
+  const [newPhone, setNewPhone] = useState(user.phone);
   const [newWebsite, setNewWebsite] = useState(user.website);
 
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [isMailEmpty, setIsMailEmpty] = useState(false);
   const [isPhoneEmpty, setIsPhoneEmpty] = useState(false);
   const [isWebsiteEmpty, setIsWebsiteEmpty] = useState(false);
+
+  const menuRef = useRef();
+
+  useEffect(
+    () => {
+      let handler = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+          closeModal();
+        }
+      }
+
+      document.addEventListener('mousedown', handler);
+    }
+  );
 
   useEffect(
     () => {
@@ -80,6 +94,7 @@ export const UserEdit = ({
           role="document"
           className="ant-modal"
           style={{ width: "520px", transformOrigin: "434px 296px"}}
+          ref={menuRef}
         >
           <div className="ant-modal-content">
             <button 
@@ -176,7 +191,7 @@ export const UserEdit = ({
                           data-__field="[object Object]"
                           className={cn("ant-input", {'input-error': isPhoneEmpty})}
                           value={newPhone}
-                          onChange={(event) => setNewPnone(event.target.value)}
+                          onChange={(event) => setNewPhone(event.target.value)}
                           required
                         />
                       </span>
